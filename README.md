@@ -1,189 +1,168 @@
-# Awesome-Scala-Extensibility-Runtime
-
-## Top Scala Extensibility & Runtime Ecosystem
-
-
-
-**Curated List of SaaS Products & Open-Source GitHub Projects**  
-
-*Focused on Scala UDF Runtimes, Distributed Compute & Self-Hosted Actor Systems*  
-
-**Last updated: October 2026**
-
-
-
-This repository tracks notable **SaaS platforms** and **open-source projects** for **Scala Extensibility & Runtime**. These tools enable organizations to write and execute Scala code in managed data platforms, run distributed Scala workloads on Spark and Flink, and build resilient serverless applications with the Akka actor model—leveraging Scala's type safety and JVM performance without managing the underlying infrastructure.
-
-
-
-**Examples** include Snowflake Scala UDFs, Apache Spark Scala API, Databricks Scala Runtime, AWS EMR Scala, Google Cloud Dataproc Scala, Lightbend/Akka, Apache Flink Cloud, Cloudera Scala Runtime, and Azure HDInsight Scala (the category leaders).
-
-
-
-**Open-source emphasis**: Scala Extensibility & Runtime is a domain where open-source tooling is **foundational but undergoing significant transitions**. **Apache Spark** remains the dominant distributed compute engine with first-class Scala APIs—but it is now maintained by Apache and has no single commercial vendor driving its Scala surface . **Apache Flink** has **deprecated all Scala APIs** and will remove them in a future major version—Scala users are directed to the Java DataStream and Table APIs . **Akka** (formerly Lightbend) has pivoted from open-source libraries to a commercial platform; the Akka 3 runtime is now a **managed service** (Serverless, BYOC) with app resilience guarantees, while the core actor libraries continue under Apache 2.0 . **Kalix** (the serverless platform) has been retired in favor of Akka . **Scala Native** provides an ahead-of-time compiler and lightweight runtime for Scala, Apache 2.0 licensed, with active development (v0.5.10 released January 2026) . The critical caveat: **the open-source Scala runtime ecosystem is consolidating**—Flink's Scala API is deprecated, Akka's innovation is now commercial, and Spark's Scala API is stable but not the focus of new investment.
-
-
-
-Contributions welcome! Open a PR to add/update entries. Keep descriptions factual and link to official sites.
-
-
-
-## Table of Contents
-
-- [SaaS/Hosted Platforms](#saas-products)
-
-- [Open-Source GitHub Projects](#open-source-github-projects)
-
-- [How to Contribute](#how-to-contribute)
-
-- [Disclaimer](#disclaimer)
-
-
-
-## SaaS/Hosted Platforms
-
-
-
-- **[Snowflake Scala UDFs](https://docs.snowflake.com/en/developer-guide/udf/scala/udf-scala-introduction)**  
-
-  Write UDF handlers in Scala 2.12 or 2.13 and call them from SQL . Handlers can be in-line or packaged as JARs on a stage; support reading staged files via `SnowflakeFile` and importing directories with `IMPORTS` . **Best for Snowflake users wanting Scala logic in SQL queries**—but limited to the Snowflake runtime and UDF execution model.
-
-
-
-- **[Databricks Scala Runtime](https://docs.databricks.com/gcp/en/dev-tools/databricks-connect/scala/jar-compile)**  
-
-  Run Scala code on Databricks serverless compute via JAR tasks (Public Preview); use Databricks Connect for Scala to build compatible JARs with Scala 2.13 and JDK 17, and deploy through the UI or Declarative Automation Bundles . **Best for Databricks users wanting serverless Scala execution**—but it is in preview and requires JAR packaging discipline.
-
-
-
-- **[AWS EMR Scala](https://aws.amazon.com/emr/)**  
-
-  Managed Hadoop/Spark clusters supporting Scala workloads; run Spark jobs written in Scala on EMR without managing cluster infrastructure.
-
-
-
-- **[Google Cloud Dataproc Scala](https://cloud.google.com/dataproc)**  
-
-  Managed Spark/Hadoop service supporting Scala; run Scala Spark jobs on Dataproc clusters with per-second billing.
-
-
-
-- **[Akka (Lightbend)](https://akka.io/)**  
-
-  The commercial successor to Lightbend's platform; **Akka 3** provides a managed runtime (Serverless, BYOC, Dedicated) for building responsive distributed applications with the actor model . Features multi-region replication, multi-master CRDTs, zero-downtime migrations, and an **app resilience guarantee** (Akka indemnifies against app downtime losses) . **Kalix has been retired**; all existing Kalix services continue under Akka . **Best for organizations wanting managed Akka without operating the runtime**—but it is a commercial platform, not an open-source library.
-
-
-
-- **[Apache Flink Cloud (Managed Services)](https://flink.apache.org/)**  
-
-  Managed Flink offerings (AWS Managed Service for Apache Flink, Confluent Cloud for Flink) now support Flink 2.2, but **Scala APIs are deprecated** and will be removed . Scala users should migrate to Java DataStream/Table APIs . **Not recommended for new Scala projects**—the Scala surface is shrinking.
-
-
-
-- **[Cloudera Scala Runtime](https://www.cloudera.com/)**  
-
-  Enterprise Hadoop/Spark distribution supporting Scala; provides managed clusters with Scala Spark execution.
-
-
-
-- **[Azure HDInsight Scala](https://azure.microsoft.com/en-us/products/hdinsight)**  
-
-  Managed Hadoop/Spark service on Azure supporting Scala; run Scala Spark jobs on HDInsight clusters.
-
-
-
-## Open-Source GitHub Projects
-
-
-
-### Distributed Compute Engines (Scala-Native)
-
-
-
-- **[Apache Spark](https://github.com/apache/spark)**  
-
-  The **dominant open-source distributed compute engine** (Apache 2.0) with first-class Scala APIs for SQL, streaming, MLlib, and GraphX . Scala is Spark's primary language—the API is Scala-native, and the Spark shell is Scala. **Best for large-scale data processing with Scala**—but Spark's Scala API is stable rather than rapidly evolving, and the project is now Apache-governed.
-
-
-
-- **[Apache Pekko](https://github.com/apache/pekko)**  
-
-  The **Apache-governed fork of Akka 2.6.x** (Apache 2.0) . Provides the actor model, clustering, sharding, persistence, and streams—the same libraries Akka built its reputation on, now under neutral governance. Migration from Akka 2.6 is largely mechanical (package names change from `akka` to `pekko`) . **Best for teams wanting Akka's actor model without the commercial platform dependency**—but Pekko is based on Akka 2.6, not the newer Akka 3 features.
-
-
-
-### Scala Runtime & Native
-
-
-
-- **[Scala Native](https://github.com/scala-native/scala-native)**  
-
-  Optimizing **ahead-of-time compiler and lightweight managed runtime** for Scala (Apache 2.0) . Compiles Scala to native binaries without a JVM—lower memory footprint, faster startup, and no JVM warmup. Actively developed (v0.5.10, January 2026); sponsored by EPFL, LAMP, and VirtusLab . **Best for CLI tools, edge deployments, and low-latency services** where JVM overhead is unacceptable—but the ecosystem of Scala libraries available for Native is smaller than JVM Scala.
-
-
-
-### Workflow & Orchestration (Scala)
-
-
-
-- **[OpenMOLE](https://github.com/openmole/openmole)**  
-
-  Open-source **workflow engine for exploration of simulation models** using high-throughput computing (AGPL-3.0, Scala) . Designed for scientific computing—parameter sweeps, model exploration, and distributed execution across grids and clusters. **Niche but active** (updated within days as of listing)—best for research and simulation workloads rather than general-purpose orchestration.
-
-
-
-### Additional Strong Open-Source Options
-
-
-
-- **Akka (open-source libraries)** — The core Akka actor libraries remain Apache 2.0 and continue to receive feature investment, but the **commercial Akka 3 platform** is where new runtime capabilities (multi-region replication, managed operations) are being built . Open-source Akka is stable but not where innovation is happening.
-
-- **ZIO** — Type-safe, composable library for asynchronous and concurrent programming in Scala; provides a purely functional effect system with structured concurrency, resource management, and a rich ecosystem (ZIO HTTP, ZIO Kafka, ZIO Quill) . **Not a runtime platform** but a foundational library for building Scala services—widely adopted in the functional Scala community.
-
-- **Cats / http4s / Circe** — Foundational Scala libraries for functional programming (Cats), HTTP (http4s), and JSON (Circe); widely adopted across the ecosystem . **Libraries, not runtimes**—but essential for building Scala services.
-
-
-
-**Frameworks for building custom systems**: For **distributed data processing with Scala**, Apache Spark remains the standard . For **actor-based distributed systems without commercial dependency**, Apache Pekko (Akka 2.6 fork) . For **managed Akka runtime with resilience guarantees**, Akka 3 commercial platform . For **native binaries without JVM**, Scala Native . For **scientific workflow orchestration**, OpenMOLE . **Avoid**: Apache Flink for new Scala projects—Scala APIs are deprecated and will be removed . No open-source project replicates Akka 3's managed multi-region runtime—that is now commercial territory.
-
-
-
-## How to Contribute
-
-
-
-1. Fork the repo.
-
-2. Add/edit entries in `README.md` (follow existing format).
-
-3. Include: name, link, 1–2 sentence description, and whether it's SaaS or open-source.
-
-4. Submit PR with a short explanation.
-
-
-
-Star the repo if you find it useful!
-
-
-
-## Disclaimer
-
-
-
-- This is a **community-curated** list — not exhaustive and not an endorsement.
-
-- Scala runtime platforms handling production code and data must comply with organizational security policies; **self-hosted runtimes place full responsibility for JVM tuning, dependency management, and patching on the operator**.
-
-- **The Scala runtime ecosystem is consolidating**—**Apache Flink has deprecated all Scala APIs** and will remove them ; **Akka's innovation is now in the commercial Akka 3 platform** ; **Kalix has been retired** . **Apache Pekko** provides the open-source Akka 2.6 lineage under Apache governance . **Apache Spark** remains stable and Scala-native but is not rapidly evolving its Scala surface. Choose based on whether you need managed runtime (Akka), open-source actor model (Pekko), or data processing (Spark)—and avoid Flink for new Scala projects.
-
-- Verify license terms for commercial use; Apache Spark and Apache Pekko use Apache 2.0 , Scala Native uses Apache 2.0 , and OpenMOLE uses AGPL-3.0 .
-
-
+# 🚀 Awesome-Scala-Extensibility-Runtime
+
+<p align="center">
+  <a href="https://github.com/ishandutta2007/Awesome-Awesome-Awesome"><img src="https://img.shields.io/badge/Awesome-%E2%9C%94-blueviolet?style=flat-square&logo=github" alt="Awesome"/></a><a href="https://discord.gg/jc4xtF58Ve"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Scala-Extensibility-Runtime/stargazers"><img src="https://img.shields.io/github/stars/ishandutta2007/Awesome-Scala-Extensibility-Runtime?style=for-the-badge&color=gold" alt="Stars" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Scala-Extensibility-Runtime/network/members"><img src="https://img.shields.io/github/forks/ishandutta2007/Awesome-Scala-Extensibility-Runtime?style=for-the-badge&color=blue" alt="Forks" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Scala-Extensibility-Runtime/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License: MIT" /></a>
+  <a href="https://github.com/ishandutta2007/Awesome-Scala-Extensibility-Runtime/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome" /></a>
+  <a href="https://github.com/ishandutta2007"><img alt="GitHub followers" src="https://img.shields.io/github/followers/ishandutta2007?label=Follow" /></a>
+</p>
+
+<p align="center">
+  <img src="./assets/banner.svg" alt="Awesome Scala Extensibility and Runtime Banner" width="100%" />
+</p>
 
 ---
 
+## 📖 Introduction & SEO Overview
 
+**Awesome Scala Extensibility & Runtime** is an authoritative, community-curated directory tracking enterprise **SaaS platforms**, **cloud distributed compute engines**, and **open-source frameworks** tailored for Scala execution. 
 
-**Made for Scala developers, platform engineers, and organizations choosing their Scala runtime stack.**  
+Whether deploying **Scala UDFs** in cloud warehouses (Snowflake, Databricks), orchestrating petabyte-scale data pipelines on **Apache Spark**, scaling concurrent microservices with the **actor model** (Akka, Apache Pekko), or compiling ahead-of-time microservices via **Scala Native**, this repository provides up-to-date pricing, free-tier limits, market dynamics, and architectural guidance for technical leads, data engineers, and Scala developers.
 
-Let's make Scala runtime more open, but with clear eyes about the Flink deprecation and Akka's commercial pivot that define the current landscape.
+### 🔍 Key Focus Areas & Keywords
+- **Scala UDF Runtimes & Lakehouses**: Snowflake Scala UDFs, Databricks Connect, AWS EMR, Google Cloud Dataproc.
+- **Distributed Big Data Compute**: Apache Spark, Apache Flink, Livy, Apache Toree.
+- **Actor Model & Reactive Microservices**: Akka 3 Serverless, Apache Pekko, Finagle.
+- **Ahead-Of-Time (AOT) & Functional Runtimes**: Scala Native, Scala.js, ZIO, Typelevel Cats, FS2.
+
+---
+
+## 📑 Table of Contents
+
+- [📊 Sector Overview & Market Dynamics](#-sector-overview--market-dynamics)
+- [☁️ SaaS & Hosted Scala Platforms](#️-saas--hosted-scala-platforms)
+- [🐙 Open-Source GitHub Projects](#-open-source-github-projects)
+- [⚖️ Architectural Comparison & Stack Recommendations](#️-architectural-comparison--stack-recommendations)
+- [🤝 How to Contribute](#-how-to-contribute)
+- [⚠️ Disclaimer](#️-disclaimer)
+- [📈 Star History](#-star-history)
+- [💖 Support & Community](#-support--community)
+
+---
+
+## 📊 Sector Overview & Market Dynamics
+
+The global distributed data compute, serverless processing, and cloud language runtime sector is valued at an estimated **$18.5 Billion in 2026** and is forecasted to exceed **$38.2 Billion by 2030** (CAGR ~16.8%).
+
+Market dynamics reveal **high concentration** at the enterprise lakehouse and cloud infrastructure layer—dominated by hyperscalers (Microsoft Azure, Google Cloud, AWS) alongside specialist data platforms (Snowflake, Databricks) that capture the vast majority of commercial Scala data workloads. Conversely, the runtime and framework tier remains **moderately fragmented** between production actor-system runtimes (commercial Akka vs. open-source Apache Pekko), pure functional effect systems (Typelevel Cats, ZIO), and emerging ahead-of-time compilation runtimes (Scala Native).
+
+---
+
+## ☁️ SaaS & Hosted Scala Platforms
+
+The following enterprise platforms provide managed runtimes for executing Scala workloads, User-Defined Functions (UDFs), and distributed Spark jobs without managing underlying cluster infrastructure. 
+
+*Entries are sorted descending by company scale (Valuation / Market Capitalization).*
+
+| 🏢 Platform / Service | 💼 Provider & Scale (Valuation / Revenue) | 📝 Description & Extensibility Features | 💰 Specific Pricing Model | 🎁 Specific Free Tier / Trial Limit |
+| :--- | :--- | :--- | :--- | :--- |
+| **[Azure HDInsight Scala](https://azure.microsoft.com/en-us/products/hdinsight)** | **Microsoft**<br>📊 ~$3.1 Trillion Market Cap<br>💵 ~$245B+ Annual Revenue | Enterprise managed analytics service hosting Apache Spark, Kafka, and Hadoop on Azure. Executes Scala Spark jobs, Livy REST jobs, and custom JAR pipelines with Active Directory security. | Starts at **$0.081/hour** for HDInsight cluster management nodes + underlying VM compute (e.g., D3 v2 from **$0.14/vCPU-hr**). | **Azure Free Account**: **$200 credit** for 30 days + 12 months of select free services + 55+ always-free services. |
+| **[Google Cloud Dataproc Scala](https://cloud.google.com/dataproc)** | **Alphabet / Google**<br>📊 ~$2.1 Trillion Market Cap<br>💵 ~$307B+ Annual Revenue | Managed Apache Spark and Hadoop service supporting native Scala JARs, Dataproc Serverless, and per-second billing with auto-scaling cluster topology. | Compute management surcharge of **$0.010 per vCPU-hour** + standard Compute Engine VM instances (e.g., e2-standard-4 at **$0.134/hr**). | **Google Cloud Free Trial**: **$300 free credits** valid for 90 days across all GCP services with no initial billing commitment. |
+| **[AWS EMR Scala](https://aws.amazon.com/emr/)** | **Amazon / AWS**<br>📊 ~$1.9 Trillion Market Cap<br>💵 ~$575B+ Annual Revenue | Managed big data platform for running distributed Scala jobs across EMR on EC2, EMR on EKS, or EMR Serverless without node provisioning. | Management fee from **$0.0105/instance-hr** (e.g., m5.xlarge adds **$0.048/hr** to EC2 cost) or EMR Serverless at **$0.052624/vCPU-hr**. | **AWS Free Tier**: 12 months access with up to **750 hours/month** of eligible t2/t3.micro instances plus AWS promotional credit programs. |
+| **[Snowflake Scala UDFs](https://docs.snowflake.com/en/developer-guide/udf/scala/udf-scala-introduction)** | **Snowflake Inc.**<br>📊 ~$50 Billion Market Cap<br>💵 ~$3.4B+ Annual Revenue | Direct execution of custom Scala 2.12/2.13 code within SQL queries. Allows inline code or JAR stages, Snowpark DataFrames, and vectorized batch operations. | Standard Edition starts at **$2.00 per Snowflake Credit** (Enterprise Edition at **$3.00/credit**; billed per second of warehouse uptime). | **30-Day Free Trial**: Includes **$400 in free usage credits** with full Enterprise tier capabilities. |
+| **[Databricks Scala Runtime](https://docs.databricks.com/en/dev-tools/databricks-connect/scala/jar-compile)** | **Databricks**<br>📊 ~$43B–$62B Valuation<br>💵 ~$2.4B+ ARR | Managed Spark compute engine supporting Scala 2.12/2.13 JAR tasks, serverless job clusters, and Databricks Connect declarative workflows. | Serverless Jobs Compute starts at **$0.15 per Databricks Unit (DBU)** for Standard tier (**$0.20/DBU** for Premium Serverless Jobs). | **14-Day Free Trial**: Full-featured Databricks Platform trial on AWS, Azure, or GCP with self-managed cloud infrastructure. |
+| **[Confluent Cloud for Flink](https://www.confluent.io/product/confluent-flink/)** | **Confluent**<br>📊 ~$7.2 Billion Market Cap<br>💵 ~$960M+ ARR | Serverless stream processing engine powered by Apache Flink; ideal for streaming pipelines transitioning from legacy Scala APIs to managed SQL/Java. | Serverless streaming starts at **$0.30 per Confluent Flink Unit (CFU) per hour**. | **Confluent Cloud Trial**: **$400 in free credits** usable across all streaming and Flink resources during the first 30 days. |
+| **[Cloudera Scala Runtime (CDP)](https://www.cloudera.com/products/cloudera-data-platform.html)** | **Cloudera**<br>📊 ~$5.3 Billion Valuation<br>💵 ~$1.0B+ ARR | Enterprise data cloud for running distributed Scala Spark jobs, interactive Livy sessions, and machine learning runtimes protected by SDX governance. | CDP Public Cloud starts at **$0.08 per Cloudera Compute Unit (CCU) per hour** (+ underlying cloud IaaS VM charges). | **60-Day Trial**: Free evaluation license of Cloudera Data Platform (CDP) Private or Public Cloud. |
+| **[Akka Platform / Serverless](https://akka.io/)** | **Lightbend**<br>📊 ~$150 Million Valuation<br>💵 ~$30M+ ARR | Managed commercial cloud platform for Akka 3; provides serverless stateful actors, multi-region CRDT replication, zero-downtime upgrades, and uptime financial guarantees. | Compute pricing starts at **$0.000014/second per vCPU** (~**$0.05/vCPU-hr**) and **$0.0000035/GB-s RAM** (~**$0.0126/GB-hr**). | **14-Day Free Trial**: Access to Akka Serverless cloud console with starter compute quota and no credit card required. |
+
+---
+
+## 🐙 Open-Source GitHub Projects
+
+Explore the open-source engines, compilers, actor platforms, and runtime libraries powering modern Scala.
+
+*Entries are sorted descending by GitHub Star Count.*
+
+| 📦 Repository & Link | ⭐ Star Count | 📜 License | 💡 Architectural Purpose & Description |
+| :--- | :---: | :---: | :--- |
+| **[Apache Spark](https://github.com/apache/spark)** | [![GitHub stars](https://img.shields.io/github/stars/apache/spark?style=social&color=white&label=Stars)](https://github.com/apache/spark/stargazers) | Apache-2.0 | **Unified Distributed Analytics Engine**: The preeminent distributed engine providing first-class Scala APIs for large-scale batch processing, SQL, streaming, and machine learning across massive clusters. |
+| **[Apache Flink](https://github.com/apache/flink)** | [![GitHub stars](https://img.shields.io/github/stars/apache/flink?style=social&color=white&label=Stars)](https://github.com/apache/flink/stargazers) | Apache-2.0 | **Distributed Stream & Event Processing Engine**: Industry-standard real-time stream processor. *(Note: Scala-specific APIs are deprecated in favor of Java and Table/SQL APIs).* |
+| **[Akka (Core Libraries)](https://github.com/akka/akka)** | [![GitHub stars](https://img.shields.io/github/stars/akka/akka?style=social&color=white&label=Stars)](https://github.com/akka/akka/stargazers) | BSL 1.1 / Apache-2.0 (v2.6) | **Actor-Based Concurrency Toolkit**: Foundational toolkit for building concurrent, distributed, and resilient message-driven applications on the JVM. |
+| **[Twitter Finagle](https://github.com/twitter/finagle)** | [![GitHub stars](https://img.shields.io/github/stars/twitter/finagle?style=social&color=white&label=Stars)](https://github.com/twitter/finagle/stargazers) | Apache-2.0 | **Extensible RPC System for JVM**: Highly concurrent, protocol-agnostic RPC library used to construct high-throughput asynchronous services and clients in Scala. |
+| **[Scala 3 (Dotty)](https://github.com/scala/scala3)** | [![GitHub stars](https://img.shields.io/github/stars/scala/scala3?style=social&color=white&label=Stars)](https://github.com/scala/scala3/stargazers) | Apache-2.0 | **Next-Generation Scala Compiler & Runtime**: The official compiler and standard library runtime for Scala 3, featuring contextual abstractions, metaprogramming, and union types. |
+| **[Typelevel Cats](https://github.com/typelevel/cats)** | [![GitHub stars](https://img.shields.io/github/stars/typelevel/cats?style=social&color=white&label=Stars)](https://github.com/typelevel/cats/stargazers) | MIT | **Functional Programming Abstractions**: Core library providing functional programming concepts (Monad, Applicative, Functor) powering modern typed Scala runtimes. |
+| **[Scala.js](https://github.com/scala-js/scala-js)** | [![GitHub stars](https://img.shields.io/github/stars/scala-js/scala-js?style=social&color=white&label=Stars)](https://github.com/scala-js/scala-js/stargazers) | Apache-2.0 | **Scala-to-JavaScript Compiler**: Compiles Scala code directly to optimized JavaScript, enabling full-stack Scala execution in browsers and Node.js runtimes. |
+| **[Scala Native](https://github.com/scala-native/scala-native)** | [![GitHub stars](https://img.shields.io/github/stars/scala-native/scala-native?style=social&color=white&label=Stars)](https://github.com/scala-native/scala-native/stargazers) | Apache-2.0 | **Ahead-of-Time Native Compiler & Runtime**: Compiles Scala to native machine code via LLVM without JVM overhead, ideal for CLI utilities, embedded systems, and serverless edge functions. |
+| **[ZIO](https://github.com/zio/zio)** | [![GitHub stars](https://img.shields.io/github/stars/zio/zio?style=social&color=white&label=Stars)](https://github.com/zio/zio/stargazers) | Apache-2.0 | **Zero-Dependency Concurrent Effect Runtime**: Purely functional library with structured concurrency, async fiber scheduler, and an extensive ecosystem (ZIO HTTP, ZIO Kafka, ZIO Streams). |
+| **[http4s](https://github.com/http4s/http4s)** | [![GitHub stars](https://img.shields.io/github/stars/http4s/http4s?style=social&color=white&label=Stars)](https://github.com/http4s/http4s/stargazers) | Apache-2.0 | **Typeful Streaming HTTP Server & Client**: Minimalist, functional HTTP service library built on top of Cats Effect and FS2. |
+| **[Circe](https://github.com/circe/circe)** | [![GitHub stars](https://img.shields.io/github/stars/circe/circe?style=social&color=white&label=Stars)](https://github.com/circe/circe/stargazers) | Apache-2.0 | **JSON Serialization & Parsing Engine**: Purely functional JSON library with compile-time derivation for high-performance Scala APIs. |
+| **[Typelevel FS2](https://github.com/typelevel/fs2)** | [![GitHub stars](https://img.shields.io/github/stars/typelevel/fs2?style=social&color=white&label=Stars)](https://github.com/typelevel/fs2/stargazers) | MIT | **Functional Streams for Scala**: Composable, resource-safe, streaming I/O library with backpressure management. |
+| **[Apache Pekko](https://github.com/apache/pekko)** | [![GitHub stars](https://img.shields.io/github/stars/apache/pekko?style=social&color=white&label=Stars)](https://github.com/apache/pekko/stargazers) | Apache-2.0 | **Community-Governed Reactive Actor Platform**: Apache fork of Akka 2.6.x providing actor clustering, HTTP, gRPC, and persistence under permissive governance. |
+| **[Apache Livy](https://github.com/apache/incubator-livy)** | [![GitHub stars](https://img.shields.io/github/stars/apache/incubator-livy?style=social&color=white&label=Stars)](https://github.com/apache/incubator-livy/stargazers) | Apache-2.0 | **REST Service for Apache Spark**: Enables submission of interactive Scala Spark jobs, snippets, and context sharing via RESTful APIs. |
+| **[Apache Toree](https://github.com/apache/incubator-toree)** | [![GitHub stars](https://img.shields.io/github/stars/apache/incubator-toree?style=social&color=white&label=Stars)](https://github.com/apache/incubator-toree/stargazers) | Apache-2.0 | **Interactive Gateway & Jupyter Kernel**: Provides interactive Scala execution and notebook gateways communicating directly with Spark clusters. |
+| **[OpenMOLE](https://github.com/openmole/openmole)** | [![GitHub stars](https://img.shields.io/github/stars/openmole/openmole?style=social&color=white&label=Stars)](https://github.com/openmole/openmole/stargazers) | AGPL-3.0 | **Scientific Exploration Workflow Engine**: High-throughput computing orchestrator designed for large-scale distributed parameter exploration and simulation models. |
+
+---
+
+## ⚖️ Architectural Comparison & Stack Recommendations
+
+```mermaid
+flowchart TD
+    Start["Select Scala Runtime Target"] --> Case{"Workload Nature?"}
+    
+    Case -->|"Big Data / Analytics"| Data["Data Processing"]
+    Case -->|"Stateful Concurrency"| Actor["Actor / Reactive"]
+    Case -->|"Low-Latency / CLI"| Native["AOT / Native"]
+    Case -->|"Microservice API"| Functional["Async Functional"]
+    
+    Data --> D1["Apache Spark (Batch/ETL)"]
+    Data --> D2["Snowflake / Databricks UDFs"]
+    
+    Actor --> A1["Apache Pekko (Open Source 2.6 lineage)"]
+    Actor --> A2["Akka 3 Platform (Managed Serverless)"]
+    
+    Native --> N1["Scala Native (LLVM Machine Code)"]
+    Native --> N2["Scala.js (Node.js & Web)"]
+    
+    Functional --> F1["ZIO / Typelevel Cats Effect"]
+    Functional --> F2["http4s + Circe + FS2"]
+```
+
+- **For Managed Lakehouse Compute**: Choose **Snowflake Scala UDFs** or **Databricks Scala Runtime** to execute business logic without cluster administration.
+- **For Open-Source Distributed Compute**: **Apache Spark** remains the golden standard for Scala data engineering. Avoid Apache Flink for new Scala code due to upstream deprecation.
+- **For Actor-Based Systems**: Use **Apache Pekko** for permissive Apache 2.0 licensing, or **Akka Platform** if requiring managed zero-downtime replication and uptime financial indemnification.
+- **For Minimal Memory Footprint**: Use **Scala Native** for instant startup and low memory overhead without the JVM.
+
+---
+
+## 🤝 How to Contribute
+
+We welcome community contributions, corrections, and new entries!
+
+1. **Fork the Repository** on GitHub.
+2. **Create a Topic Branch**: `git checkout -b feature/add-new-runtime`.
+3. **Add or Update Entries**: Follow the tabular layout, factual pricing models, specific free tier limits, and link conventions.
+4. **Submit a Pull Request** with a concise summary of changes and reference links.
+
+---
+
+## ⚠️ Disclaimer
+
+- This repository is a **community-curated reference** and is not affiliated with or endorsed by EPFL, Lightbend, the Apache Software Foundation, Snowflake, Databricks, Microsoft, Google, or Amazon.
+- **Consolidation Note**: Upstream Apache Flink has formally deprecated its Scala APIs. Akka 3 is operated as a commercial SaaS/enterprise platform, while Apache Pekko sustains the open-source Apache 2.0 branch.
+- Verify software licenses and cloud pricing schedules prior to production deployment.
+
+---
+
+## 📈 Star History
+
+[![Star History Chart](https://star-history.dera.page/svg?repos=ishandutta2007/Awesome-Scala-Extensibility-Runtime&type=date&legend=top-left)](https://star-history.dera.page/#ishandutta2007/Awesome-Scala-Extensibility-Runtime&type=date&legend=top-left)
+
+---
+
+## 💖 Support & Community
+
+Thank you for visiting and supporting the **Awesome Scala Extensibility & Runtime** index! If this curation accelerates your architecture decisions or saves you engineering hours, please consider supporting the project:
+
+- ⭐ **Star this repository** to improve visibility across the developer community.
+- 🍴 **Fork and contribute** to keep entries, pricing, and benchmarks accurate.
+- 📢 **Share with colleagues** across developer channels, Reddit, LinkedIn, and Discord.
+- ☕ **Support the maintainer** with a coffee via the [GitHub Sponsor Dashboard](https://github.com/sponsors/ishandutta2007).
+
+---
+
+<p align="center">
+  <sub>Curated with ❤️ for the global Scala, Data Engineering, and Distributed Systems Community.</sub>
+</p>
